@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     int quantity = 2;
+    int price = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
      * Calculates the price of the order.
      */
     private int calculatePrice() {
-        return 5 * quantity;
+        if(quantity < 0) {
+            return 0;
+        }
+        return price * quantity;
     }
 
     /**
@@ -75,9 +79,15 @@ public class MainActivity extends AppCompatActivity {
      */
     public void decrement(View view) {
         displayQuantity(--quantity);
-//        TextView priceTextView = findViewById(R.id.quantity_text_view);
-//        int currentQuantity = Integer.parseInt(priceTextView.getText().toString());
-//        priceTextView.setText("" + --currentQuantity);
+    }
+
+    /**
+     *
+     *
+     * @param view
+     */
+    public void onCheckboxClicked(View view) {
+        // TODO implement this
     }
 
 }

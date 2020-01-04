@@ -4,15 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
     <TextView
+        style="@style/GeneralTextView"
+        android:layout_marginBottom="@dimen/spacing_between_elements"
+        android:text="Toppings" />
+
+    <CheckBox
+        android:id="@+id/checkbox_whipped_cream"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Quantity"
-        android:textAllCaps="true"
-        android:textColor="#aaa" />
+        android:layout_marginBottom="@dimen/spacing_between_elements"
+        android:paddingLeft="@dimen/checkbox_text_padding"
+        android:onClick="onCheckboxClicked"
+        android:text="Whipped Cream" />
+
+    <TextView
+        style="@style/GeneralTextView"
+        android:text="Quantity" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,11 +34,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            style="@style/GeneralButton"
             android:onClick="decrement"
             android:text="-" />
 
@@ -32,36 +42,29 @@
             android:id="@+id/quantity_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/spacing_between_elements"
             android:text="2"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <Button
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
+            style="@style/GeneralButton"
+            android:layout_marginRight="@dimen/spacing_between_elements"
             android:onClick="increment"
             android:text="+" />
     </LinearLayout>
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Order Summary"
-        android:textAllCaps="true"
-        android:textColor="#aaa" />
+        style="@style/GeneralTextView"
+        android:layout_marginBottom="@dimen/spacing_between_elements"
+        android:text="Order Summary" />
 
     <TextView
         android:id="@+id/order_summary_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingLeft="16dp"
+        android:layout_marginBottom="@dimen/spacing_between_elements"
         android:text="$10"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
@@ -69,7 +72,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginBottom="@dimen/spacing_between_elements"
         android:onClick="submitOrder"
         android:text="ORDER" />
 

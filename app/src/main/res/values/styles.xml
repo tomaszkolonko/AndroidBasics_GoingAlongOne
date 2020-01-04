@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- General TextView styling -->
+    <style name="GeneralTextView" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#aaa</item>
+    </style>
+
+    <!-- General Button styling -->
+    <style name="GeneralButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginTop">@dimen/spacing_between_elements</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_between_elements</item>
+    </style>
+
 </resources>
