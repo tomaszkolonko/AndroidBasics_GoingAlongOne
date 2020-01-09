@@ -29,18 +29,23 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        // Figure out if the user wants some whipped cream
         CheckBox whippedCreamCheckBox = findViewById(R.id.checkbox_whipped_cream);
-        CheckBox chocolateCheckBox = findViewById(R.id.checkbox_chocolate);
-        EditText editTextView = findViewById(R.id.plain_text_input);
         boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-        boolean hasChocolate = chocolateCheckBox.isChecked();
-        String textInput = editTextView.getText().toString();
         Log.v("MainActivity", "Has whipped cream: " + hasWhippedCream);
+
+        // Figure out if the user wants some chocolate
+        CheckBox chocolateCheckBox = findViewById(R.id.checkbox_chocolate);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
         Log.v("MainActivity", "Has chocolate: " + hasChocolate);
-        Log.v("MainActivity", "Entered Text: " + textInput);
+
+        // Figure out for who the coffee is
+        EditText nameField = findViewById(R.id.plain_text_input);
+        String nameFiledAsString = nameField.getText().toString();
+        Log.v("MainActivity", "Entered Text: " + nameFiledAsString);
 
         int price = calculatePrice();
-        displayMessage(createOrderSummary(textInput, price, hasWhippedCream));
+        displayMessage(createOrderSummary(nameFiledAsString, price, hasWhippedCream));
     }
 
     /**

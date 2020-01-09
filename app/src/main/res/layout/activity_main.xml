@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -16,7 +16,7 @@
 
         <EditText
             android:id="@+id/plain_text_input"
-            android:hint="Enter your name"
+            android:hint="@string/hint_name"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:inputType="text"/>
@@ -24,7 +24,8 @@
         <TextView
             style="@style/GeneralTextView"
             android:layout_marginBottom="@dimen/spacing_between_elements"
-            android:text="Toppings" />
+            android:layout_marginTop="@dimen/spacing_between_elements"
+            android:text="@string/toppings_title" />
 
         <CheckBox
             android:id="@+id/checkbox_whipped_cream"
@@ -33,7 +34,7 @@
             android:layout_marginBottom="@dimen/spacing_between_elements"
             android:onClick="onCreamCheckboxClicked"
             android:paddingLeft="@dimen/checkbox_text_padding"
-            android:text="Whipped Cream" />
+            android:text="@string/cream_name" />
 
         <CheckBox
             android:id="@+id/checkbox_chocolate"
@@ -42,11 +43,11 @@
             android:layout_marginBottom="@dimen/spacing_between_elements"
             android:onClick="onChocolateCheckboxClicked"
             android:paddingLeft="@dimen/checkbox_text_padding"
-            android:text="Chocolate" />
+            android:text="@string/chocolate_name" />
 
         <TextView
             style="@style/GeneralTextView"
-            android:text="Quantity" />
+            android:text="@string/quantity" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,14 +57,14 @@
             <Button
                 style="@style/GeneralButton"
                 android:onClick="decrement"
-                android:text="-" />
+                android:text="@string/hyphen" />
 
             <TextView
                 android:id="@+id/quantity_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_between_elements"
-                android:text="2"
+                android:text="@string/two"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -71,21 +72,21 @@
                 style="@style/GeneralButton"
                 android:layout_marginRight="@dimen/spacing_between_elements"
                 android:onClick="increment"
-                android:text="+" />
+                android:text="@string/plus" />
         </LinearLayout>
 
 
         <TextView
             style="@style/GeneralTextView"
             android:layout_marginBottom="@dimen/spacing_between_elements"
-            android:text="Order Summary" />
+            android:text="@string/order_summary" />
 
         <TextView
             android:id="@+id/order_summary_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_between_elements"
-            android:text="$10"
+            android:text="@string/initial_amount"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -94,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_between_elements"
             android:onClick="submitOrder"
-            android:text="ORDER" />
+            android:text="@string/order_button_text" />
 
     </LinearLayout>
 </ScrollView>
