@@ -2,12 +2,15 @@ package com.example.android.justjava;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -15,7 +18,7 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     int quantity = 2;
-    int price = 5;
+    final int BASE_PRICE = 5;
     boolean addedWhippedCream = false;
     boolean addedChocolate = false;
 
@@ -29,23 +32,23 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        // Figure out if the user wants some whipped cream
-        CheckBox whippedCreamCheckBox = findViewById(R.id.checkbox_whipped_cream);
-        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-        Log.v("MainActivity", "Has whipped cream: " + hasWhippedCream);
-
-        // Figure out if the user wants some chocolate
-        CheckBox chocolateCheckBox = findViewById(R.id.checkbox_chocolate);
-        boolean hasChocolate = chocolateCheckBox.isChecked();
-        Log.v("MainActivity", "Has chocolate: " + hasChocolate);
-
-        // Figure out for who the coffee is
+//        // Figure out for who the coffee is
         EditText nameField = findViewById(R.id.plain_text_input);
         String nameFiledAsString = nameField.getText().toString();
-        Log.v("MainActivity", "Entered Text: " + nameFiledAsString);
 
         int price = calculatePrice();
-        displayMessage(createOrderSummary(nameFiledAsString, price, hasWhippedCream));
+//        displayMessage(createOrderSummary(nameFiledAsString, price));
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, "tz.kolonko@gmail.com");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.java_order_email_subject)
+                + nameFiledAsString);
+        intent.putExtra(Intent.EXTRA_TEXT, createOrderSummary(nameFiledAsString, price));
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
@@ -54,31 +57,36 @@ public class MainActivity extends AppCompatActivity {
      * @param price
      * @return
      */
-    private String createOrderSummary(String textInput, int price, boolean hasWhippedCream) {
-        String summary = "Name: " + textInput + "\n";
-        summary += "Quantity: " + quantity + "\n";
-        summary += "Add Whipped Cream: " + (hasWhippedCream ? "yes\n":"no\n") ;
-        summary += "Add Chocolate: " + (addedChocolate ? "yes\n":"no\n") ;
-        summary += "Total: $" + price + "\nThank You!";
+    private String createOrderSummary(String textInput, int price) {
+        String summary = getString(R.string.java_name) + textInput + getString(R.string.java_new_line);
+        summary += getString(R.string.java_quantity) + quantity + getString(R.string.java_new_line);
+        summary += getString(R.string.java_add_whipped_cream) + (addedWhippedCream ? "yes\n":"no\n") ;
+        summary += getString(R.string.java_add_chocolate) + (addedChocolate ? "yes\n":"no\n") ;
+        summary += getString(R.string.java_total) + price + getString(R.string.java_thank_you);
         return summary;
-    }
-
-    /**
-     * Rather pointless but hey.... it's a getter
-     *
-     * @return
-     */
-    private boolean hasChocolate() {
-        return addedChocolate;
     }
 
     /**
      * Calculates the price of the order.
      */
     private int calculatePrice() {
+        int price = BASE_PRICE;
+
+        // Add $1 to the price if Whipped Cream is selected
+        if(addedWhippedCream) {
+            price += 1;
+        }
+
+        // Add $2 to the price if Chocolate is selected
+        if(addedChocolate) {
+            price += 2;
+        }
+
+        // If the user selects a negative number of cups default to 0
         if(quantity < 0) {
             return 0;
         }
+
         return price * quantity;
     }
 
@@ -102,14 +110,24 @@ public class MainActivity extends AppCompatActivity {
      * This method decrements the value of quantity_text_view
      */
     public void increment(View view) {
-        displayQuantity(++quantity);
+        if(quantity < 20) {
+            displayQuantity(++quantity);
+        } else {
+            Toast.makeText(this, "You cannot order more than 20 cups of coffee",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
      * This method decrements the value of quantity_text_view
      */
     public void decrement(View view) {
-        displayQuantity(--quantity);
+        if(quantity > 1) {
+            displayQuantity(--quantity);
+        } else {
+            Toast.makeText(this, "Yout cannot order less than 1 cup of coffee",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -118,16 +136,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void onCreamCheckboxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-        if(checked) {
-            addedWhippedCream = true;
-            price = 6;
-        } else {
-            addedWhippedCream = false;
-            price = 5;
-        }
-        Log.i("MainActivity", "Price set to: " + price +
-                " && addedWhippedCream set to: " + addedWhippedCream);
+        addedWhippedCream = ((CheckBox) view).isChecked();
     }
 
     /**
@@ -136,16 +145,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void onChocolateCheckboxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-        if(checked) {
-            addedChocolate = true;
-            price = 6;
-        } else {
-            addedChocolate = false;
-            price = 5;
-        }
-        Log.i("MainActivity", "Price set to: " + price +
-                " && addedChocolate set to: " + addedChocolate);
+        addedChocolate = ((CheckBox) view).isChecked();
+
     }
 
 }
